@@ -1,0 +1,47 @@
+import pyperclip
+import time
+
+def clipboard_assistant():
+    last_text = ""
+    print("🛫 ผู้ช่วยนักบินเริ่มทำงานแล้ว...")
+
+    while True:
+        try:
+            current_text = pyperclip.paste()
+            if current_text != last_text:
+                print(f"📋 พบข้อความใหม่ในคลิปบอร์ด:\n{current_text}\n")
+                # คุณสามารถเพิ่มฟังก์ชันวิเคราะห์หรือจัดการข้อความตรงนี้ได้
+                last_text = current_text
+            time.sleep(1)  # ตรวจสอบทุก 1 วินาที
+        except KeyboardInterrupt:
+            print("🛬 ผู้ช่วยนักบินหยุดทำงานแล้ว")
+            break
+
+if __name__ == "__main__":
+    clipboard_assistant()
+// ถ้าผู้ใช้ล็อกเกิน 3 ครั้ง ให้สุ่มโอกาสปลดล็อก
+const maybeUnlock = async (userId) => {
+  const user = await db.collection('users').doc(userId).get();
+  const attempts = user.data().failedAttempts;
+
+  if (attempts >= 3) {
+    const lucky = Math.random() < 0.3; // โอกาส 30%
+    if (lucky) {
+      await db.collection('users').doc(userId).update({ locked: false });
+      return 'โชคเข้าข้างคุณ! ระบบปลดล็อกให้แล้ว';
+    }
+  }
+  return 'ยังต้องรอหรือยืนยันตัวตนก่อน';
+};
+// Node.js ตัวอย่าง
+const unlockUser = async (userId) => {
+  const user = await db.collection('users').doc(userId).get();
+  const lockedAt = user.data().lockedAt;
+  const now = Date.now();
+
+  // ปลดล็อกอัตโนมัติหลัง 15 นาที
+  if (now - lockedAt > 15 * 60 * 1000) {
+    await db.collection('users').doc(userId).update({ locked: false });
+  }
+};
+https://core.telegram.org/tdlib/docs/classtd_1_1td__api_1_1background_fill_freeform_gradient.html#a8044dab2ba3c75066745014259c050c7
